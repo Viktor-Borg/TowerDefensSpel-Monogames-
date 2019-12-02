@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace TowerDefenseSpel
+namespace TowerDefenseSpel.MapGeneration
 {
-    class MapReader
+    static class MapReader
     {
-        XmlDocument mapData = new XmlDocument();
+        static XmlDocument mapData = new XmlDocument();
         
-        void ReadFile()
+        static void ReadFile()
         {
             mapData.Load("Mapdata.xml");
         }
 
-        void TranslateToXml(TileSet map)
+        static void TranslateToXml(TileSet map)
         {
-            xml
+            //xml
         }
     }
 }

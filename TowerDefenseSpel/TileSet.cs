@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TowerDefenseSpel
+namespace TowerDefenseSpel.MapGeneration
 {
     class TileSet
     {
@@ -23,7 +23,7 @@ namespace TowerDefenseSpel
             {
                 for(int j = 0; j<platserX; j++)
                 {
-                    tilePLacement[i,j] = new Tile()
+                    //tilePLacement[i,j] = new Tile()
                 }
             }
         }

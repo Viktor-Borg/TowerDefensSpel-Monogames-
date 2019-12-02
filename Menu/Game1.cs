@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace TowerDefenseSpel
+namespace Menu
 {
     /// <summary>
     /// This is the main type for your game.
@@ -27,8 +27,7 @@ namespace TowerDefenseSpel
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            SceneManager.CurrentState = SceneManager.State.Menu;
-            SceneManager.Initialize();
+
             base.Initialize();
         }
 
@@ -40,7 +39,6 @@ namespace TowerDefenseSpel
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            SceneManager.LoadContent(Content, Window);
 
             // TODO: use this.Content to load your game content here
         }
@@ -63,21 +61,6 @@ namespace TowerDefenseSpel
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            switch (SceneManager.CurrentState)
-            {
-                case SceneManager.State.LevelPicker:
-                    SceneManager.RunUpdate(Content, Window, gameTime);
-                    break;
-                case SceneManager.State.HighScore:
-                    SceneManager.CurrentState = SceneManager.HighScoreUpdate();
-                    break;
-                case SceneManager.State.Quit:
-                    this.Exit();
-                    break;
-                default:
-                    SceneManager.CurrentState = SceneManager.MenuUpdate(gameTime);
-                    break;
-            }
 
             // TODO: Add your update logic here
 
@@ -91,26 +74,6 @@ namespace TowerDefenseSpel
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin();
-
-            switch (SceneManager.CurrentState)
-            {
-                case SceneManager.State.LevelPicker:
-                    SceneManager.RunDraw(spriteBatch);
-                    break;
-                case SceneManager.State.HighScore:
-                    SceneManager.HighScoreDraw(spriteBatch);
-                    break;
-                case SceneManager.State.Quit:
-                    this.Exit();
-                    break;
-                default:
-                    SceneManager.MenuDraw(spriteBatch);
-                    break;
-            }
-
-            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
