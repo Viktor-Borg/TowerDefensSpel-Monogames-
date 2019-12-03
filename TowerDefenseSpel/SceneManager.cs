@@ -15,6 +15,7 @@ namespace TowerDefenseSpel
         private static Texture2D menuSprite;
         private static Vector2 menuPos;
         private static Menu menu;
+        private static PrintText printText;
 
         public enum State : byte{Menu, MapGeneration, Game, Quit , LevelPicker, HighScore};
 
@@ -31,6 +32,8 @@ namespace TowerDefenseSpel
             menu.AddItem(content.Load<Texture2D>("Sprites/start"), (byte)State.LevelPicker);
             menu.AddItem(content.Load<Texture2D>("Sprites/highscore"), (byte)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("Sprites/exit"), (byte)State.Quit);
+
+            
         }
 
         public static State MenuUpdate(GameTime gameTime)
@@ -73,5 +76,6 @@ namespace TowerDefenseSpel
 
 
         public static State CurrentState { get { return currentState; } set { currentState = value; } }
+        public static PrintText DebugPrint { get { return printText; }set { printText = value; } }
     }
 }

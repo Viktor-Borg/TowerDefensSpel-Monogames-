@@ -41,6 +41,8 @@ namespace TowerDefenseSpel
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             SceneManager.LoadContent(Content, Window);
+            SceneManager.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
+
 
             // TODO: use this.Content to load your game content here
         }

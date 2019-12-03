@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace TowerDefenseSpel.MapGeneration
 {
-    static class MapReader
+    static class XmlReader
     {
         static XmlDocument mapData = new XmlDocument();
         
@@ -25,10 +25,10 @@ namespace TowerDefenseSpel.MapGeneration
         {
             XmlElement menuItems = mapData.CreateElement("MenuItem");
             mapData.AppendChild(menuItems);
-           /* for (int i = 0; i < menu.; i++)
+            for (int i = 0; i < menu.Meny.Length; i++)
             {
-
-            }*/
+                //menu.Meny[i].Texture.Name;
+            }
         }
     }
 }

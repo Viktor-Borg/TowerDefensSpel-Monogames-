@@ -49,28 +49,33 @@ namespace TowerDefenseSpel
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
-            if(lastChange + 130 < gameTime.TotalGameTime.Milliseconds)
+            if(lastChange + 130 < gameTime.TotalGameTime.TotalMilliseconds)
             {
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
                     selected++;
-                    if(selected > amountOfElements - 1)
+                    if (selected > amountOfElements - 1)
                     {
                         selected = 0;
                     }
+                    lastChange = gameTime.TotalGameTime.TotalMilliseconds;
 
                 }
                 if (keyboardState.IsKeyDown(Keys.Up))
                 {
                     selected--;
 
-                    if(selected < 0)
+                    if (selected < 0)
                     {
                         selected = amountOfElements - 1;
                     }
+                    lastChange = gameTime.TotalGameTime.TotalMilliseconds;
                 }
-                lastChange = gameTime.TotalGameTime.TotalMilliseconds;
+                
             }
+
+           
+
 
             if (keyboardState.IsKeyDown(Keys.Enter))
             {
@@ -92,8 +97,9 @@ namespace TowerDefenseSpel
                     spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
                 }
             }
+            SceneManager.DebugPrint.Print("Test",spriteBatch,300,300);
         }
 
-        public MenuItem[] Meny { get { return menu; } }
+        public MenuItem[] Meny { get { return menu; } set { menu = value; } }
     }
 }
