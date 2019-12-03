@@ -11,28 +11,38 @@ namespace TowerDefenseSpel
 {
     class Menu
     {
-        List<MenuItem> menu;
+        MenuItem[] menu;
         int selected = 0;
+        int amountOfElements = 0;
 
         float currentHeight = 0;
         double lastChange = 0;
-        byte defaultMenuState;
+        byte defaultMenuState = 0;
 
-        public Menu(byte defaultMenuState)
+        int k = 0;
+
+        public Menu(byte defaultMenuState, int amountOfElements)
         {
-            menu = new List<MenuItem>();
+            menu = new MenuItem[amountOfElements];
+            this.amountOfElements = amountOfElements;
             this.defaultMenuState = defaultMenuState;
         }
 
         public void AddItem(Texture2D itemTexture, byte state)
         {
-            float X = 0;
-            float y = 0 + currentHeight;
+            if(k < amountOfElements)
+            {
+                float X = 0;
+                float y = 0 + currentHeight;
 
-            currentHeight += itemTexture.Height + 20;
+                currentHeight += itemTexture.Height + 20;
 
-            MenuItem temp = new MenuItem(itemTexture, new Vector2(X, y), state);
-            menu.Add(temp);
+                MenuItem temp = new MenuItem(itemTexture, new Vector2(X, y), state);
+                menu[k] = temp;
+                k++;
+            }
+            
+
         }
 
         public byte Update(GameTime gameTime)
@@ -44,7 +54,7 @@ namespace TowerDefenseSpel
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
                     selected++;
-                    if(selected > menu.Count - 1)
+                    if(selected > amountOfElements - 1)
                     {
                         selected = 0;
                     }
@@ -56,7 +66,7 @@ namespace TowerDefenseSpel
 
                     if(selected < 0)
                     {
-                        selected = menu.Count - 1;
+                        selected = amountOfElements - 1;
                     }
                 }
                 lastChange = gameTime.TotalGameTime.TotalMilliseconds;
@@ -71,7 +81,7 @@ namespace TowerDefenseSpel
         
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i <menu.Count; i++)
+            for (int i = 0; i <menu.Length; i++)
             {
                 if(i == selected)
                 {
@@ -83,5 +93,7 @@ namespace TowerDefenseSpel
                 }
             }
         }
+
+        public MenuItem[] Meny { get { return menu; } }
     }
 }

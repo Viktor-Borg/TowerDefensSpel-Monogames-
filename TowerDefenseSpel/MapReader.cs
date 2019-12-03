@@ -16,9 +16,19 @@ namespace TowerDefenseSpel.MapGeneration
             mapData.Load("Mapdata.xml");
         }
 
-        static void TranslateToXml(TileSet map)
+        static void TranslateToXmlMap(TileSet map)
         {
             //xml
+        }
+
+        static void TranslateToXmlMenu(Menu menu)
+        {
+            XmlElement menuItems = mapData.CreateElement("MenuItem");
+            mapData.AppendChild(menuItems);
+           /* for (int i = 0; i < menu.; i++)
+            {
+
+            }*/
         }
     }
 }

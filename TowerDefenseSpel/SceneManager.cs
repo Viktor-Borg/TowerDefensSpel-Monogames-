@@ -27,7 +27,7 @@ namespace TowerDefenseSpel
 
         public static void LoadContent(ContentManager content, GameWindow window)
         {
-            menu = new Menu((byte)State.Menu);
+            menu = new Menu((byte)State.Menu, 3);
             menu.AddItem(content.Load<Texture2D>("Sprites/start"), (byte)State.LevelPicker);
             menu.AddItem(content.Load<Texture2D>("Sprites/highscore"), (byte)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("Sprites/exit"), (byte)State.Quit);
@@ -45,12 +45,13 @@ namespace TowerDefenseSpel
 
         public static State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
         {
-            return State.Menu;
+
+            return (State)menu.Update(gameTime);
         }
 
         public static void RunDraw(SpriteBatch spriteBatch)
         {
-
+            
         }
         
         public static State HighScoreUpdate()
