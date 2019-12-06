@@ -97,7 +97,7 @@ namespace TowerDefenseSpel
                     spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
                 }
             }
-            SceneManager.DebugPrint.Print("Test",spriteBatch,300,300);
+            SceneManager.DebugPrint.Print(menu[0].Texture.Name,spriteBatch,300,300);
         }
 
         public MenuItem[] Meny { get { return menu; } set { menu = value; } }

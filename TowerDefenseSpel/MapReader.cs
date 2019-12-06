@@ -21,14 +21,22 @@ namespace TowerDefenseSpel.MapGeneration
             //xml
         }
 
-        static void TranslateToXmlMenu(Menu menu)
+        public static void TranslateToXmlMenu(Menu menu)
         {
             XmlElement menuItems = mapData.CreateElement("MenuItem");
             mapData.AppendChild(menuItems);
             for (int i = 0; i < menu.Meny.Length; i++)
             {
-                //menu.Meny[i].Texture.Name;
+                XmlElement menuItem = mapData.CreateElement("MenuItem" + (i+1));
+                menuItem.InnerText = menu.Meny[i].Texture.Name;
+                menuItems.AppendChild(menuItem);
             }
+            mapData.Save("Mapdata.xml");
+        }
+
+        public static void LoadScene(string SceneId)
+        {
+
         }
     }
 }

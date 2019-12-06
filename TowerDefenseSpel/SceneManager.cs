@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TowerDefenseSpel.MapGeneration;
 
 namespace TowerDefenseSpel
 {
@@ -32,6 +33,8 @@ namespace TowerDefenseSpel
             menu.AddItem(content.Load<Texture2D>("Sprites/start"), (byte)State.LevelPicker);
             menu.AddItem(content.Load<Texture2D>("Sprites/highscore"), (byte)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("Sprites/exit"), (byte)State.Quit);
+
+           // XmlReader.TranslateToXmlMenu(menu);
 
             
         }
