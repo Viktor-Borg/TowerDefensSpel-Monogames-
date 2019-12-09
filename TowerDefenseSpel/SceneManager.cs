@@ -18,7 +18,7 @@ namespace TowerDefenseSpel
         private static Menu menu;
         private static PrintText printText;
 
-        public enum State : byte{Menu, MapGeneration, Game, Quit , LevelPicker, HighScore};
+        public enum State : byte{Menu, LevelPicker, HighScore, Quit,MapGeneration, Game };
 
         private static State currentState;
 
@@ -29,10 +29,13 @@ namespace TowerDefenseSpel
 
         public static void LoadContent(ContentManager content, GameWindow window)
         {
-            menu = new Menu((byte)State.Menu, 3);
-            menu.AddItem(content.Load<Texture2D>("Sprites/start"), (byte)State.LevelPicker);
-            menu.AddItem(content.Load<Texture2D>("Sprites/highscore"), (byte)State.HighScore);
-            menu.AddItem(content.Load<Texture2D>("Sprites/exit"), (byte)State.Quit);
+            byte[] states = new byte[3];
+            for(int i = 0; i< states.Length; i++)
+            {
+                states[i] = (byte)(i + 1);
+            }
+
+            menu = XmlReader.LoadMenuScene("Mapdata.xml", states, content, 0);
 
            // XmlReader.TranslateToXmlMenu(menu);
 
