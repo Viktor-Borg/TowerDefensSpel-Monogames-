@@ -32,7 +32,7 @@ namespace TowerDefenseSpel.MapGeneration
             }
         }
 
-        public TileSet TileSet { get { return TileSet; } }
+        public TileSet TileSet { get { return backgroundTiles; } }
         public PathPoint[] PathPoints { get { return pathPoints; } }
         public Powersource[] Powersources { get { return powersources; } }
     }

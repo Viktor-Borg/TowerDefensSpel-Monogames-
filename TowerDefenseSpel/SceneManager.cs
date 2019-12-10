@@ -17,6 +17,8 @@ namespace TowerDefenseSpel
         private static Vector2 menuPos;
         private static Menu menu;
         private static PrintText printText;
+        private static Texture2D grassTile;
+        private static Map tempMap;
 
         public enum State : byte{Menu, LevelPicker, HighScore, Quit,MapGeneration, Game };
 
@@ -36,6 +38,25 @@ namespace TowerDefenseSpel
             }
 
             menu = XmlReader.LoadMenuScene("Mapdata.xml", states, content, 0);
+
+            grassTile = content.Load<Texture2D>("grass");
+            int tileSizeX = grassTile.Width;
+            int tileSizeY = grassTile.Height;
+
+            Vector2 windowSize = new Vector2(window.ClientBounds.X, window.ClientBounds.Y);
+
+            TileSet temp = new TileSet(windowSize, new Vector2(tileSizeX, tileSizeY), content, grassTile);
+
+            Powersource[] tempSource = new Powersource[2];
+            tempSource[0] = new Powersource(grassTile, 200, 200);
+            tempSource[1] = new Powersource(grassTile, 300, 300);
+
+            PathPoint[] tempPoints = new PathPoint[2];
+            tempPoints[0] = new PathPoint(150, 150);
+            tempPoints[1] = new PathPoint(100, 150);
+
+            tempMap = new Map(temp, tempPoints, tempSource);
+            XmlReader.TranslateToXmlMap(tempMap, "Test");
 
            // XmlReader.TranslateToXmlMenu(menu);
 

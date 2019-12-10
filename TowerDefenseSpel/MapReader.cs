@@ -67,6 +67,11 @@ namespace TowerDefenseSpel.MapGeneration
             XmlElement Tiles = tempMap.CreateElement("Tiles");
             XmlElement pathPoints = tempMap.CreateElement("PathPoints");
             XmlElement powersources = tempMap.CreateElement("Powersources");
+            XmlElement mapdata = tempMap.CreateElement("Map");
+            tempMap.AppendChild(mapdata);
+            mapdata.AppendChild(Tiles);
+            mapdata.AppendChild(pathPoints);
+            mapdata.AppendChild(powersources);
 
             for(int i = 0; i<map.TileSet.PlatserY; i++)
             {
@@ -74,19 +79,22 @@ namespace TowerDefenseSpel.MapGeneration
                 {
                     XmlElement Tile = tempMap.CreateElement("Tile");
                     Tile.InnerText = "x: " + j + " y: " + i;
+                    Tiles.AppendChild(Tile);
                 }
             }
             foreach(PathPoint pathPoint in map.PathPoints)
             {
                 XmlElement PathPoint = tempMap.CreateElement("PahtPoint");
                 PathPoint.InnerText = "x: " + pathPoint.X + " y: " + pathPoint.Y;
+                pathPoints.AppendChild(PathPoint);
             }
             foreach(Powersource powersource in map.Powersources)
             {
                 XmlElement PowerSource = tempMap.CreateElement("PowerSource");
                 PowerSource.InnerText = "x: " + powersource.X + " y: " + powersource.Y;
+                powersources.AppendChild(PowerSource);
             }
-            tempMap.Save(mapName + "xml");
+            tempMap.Save(mapName + ".xml");
         }
 
       /*  public static Map LoadMapScene(Tile backgroundTiles, PathPoint[] pathPoints, Powersource[] powersources, string sceneName)
