@@ -12,32 +12,34 @@ namespace TowerDefenseSpel.MapGeneration
     class TileSet
     {
         List<Tile> tiles = new List<Tile>();
-        Tile[,] tilePLacement;
+        
+        Dictionary<string, int[,]> tilePlacement = new Dictionary<string, int[,]>();
 
         private int platserX;
         private int platserY;
+        private Texture2D texture;
 
-        public TileSet(Vector2 windowSize, Vector2 tileSize, ContentManager content,Texture2D texture)
+        public TileSet(Vector2 windowSize, Vector2 tileSize, ContentManager content,Texture2D[] textures)
         {
-            platserX = (int)windowSize.X / (int)tileSize.X;
-            platserY = (int)windowSize.Y / (int)tileSize.Y;
-            tilePLacement = new Tile[platserX+1, platserY+1];
+            this.platserX = (int)windowSize.X / (int)tileSize.X;
+            this.platserY = (int)windowSize.Y / (int)tileSize.Y;
+            
 
-            for(int i = 0; i<platserY; i++)
+            for (int i = 0; i < platserY; i++)
             {
-                for(int j = 0; j<platserX; j++)
+                for (int j = 0; j < platserX; j++)
                 {
-                    tilePLacement[i, j] = new Tile(texture);
+                    float tempPosition = j * textures[0].Width + (i * textures[0].Height) / (10 * platserY.ToString().Length);
+                    string textureId = textures[0].Name;
+                    tilePlacement.Add(tempPosition, textureId);
                 }
             }
-        }
-
-        private void foo(int x, int y)
-        {
 
         }
 
-        public Tile[,] Tiles { get { return tilePLacement;} }
+      
+
+       
         public int PlatserX { get { return platserX; } }
         public int PlatserY { get { return platserY; } }
     }

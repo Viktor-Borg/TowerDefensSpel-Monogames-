@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TowerDefenseSpel.MapGeneration;
 
 namespace TowerDefenseSpel
 {
@@ -41,6 +42,7 @@ namespace TowerDefenseSpel
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             SceneManager.LoadContent(Content, Window);
+            UIMapReader.UiMapReaderinitializer(spriteBatch,Window,Content);
             SceneManager.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
 
 

@@ -44,6 +44,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Gameobject.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="MapCreator.cs" />
     <Compile Include="MapReader.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuItem.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="SceneManager.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileSet.cs" />
+    <Compile Include="UIMapReader.cs" />
     <Compile Include="VisibleGameobject.cs" />
   </ItemGroup>
   <ItemGroup>

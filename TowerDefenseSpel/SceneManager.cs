@@ -43,7 +43,7 @@ namespace TowerDefenseSpel
             int tileSizeX = grassTile.Width;
             int tileSizeY = grassTile.Height;
 
-            Vector2 windowSize = new Vector2(window.ClientBounds.X, window.ClientBounds.Y);
+            Vector2 windowSize = new Vector2(window.ClientBounds.Width, window.ClientBounds.Height);
 
             TileSet temp = new TileSet(windowSize, new Vector2(tileSizeX, tileSizeY), content, grassTile);
 
@@ -56,7 +56,9 @@ namespace TowerDefenseSpel
             tempPoints[1] = new PathPoint(100, 150);
 
             tempMap = new Map(temp, tempPoints, tempSource);
-            XmlReader.TranslateToXmlMap(tempMap, "Test");
+           
+            
+            //XmlReader.TranslateToXmlMap(tempMap, "Test");
 
            // XmlReader.TranslateToXmlMenu(menu);
 

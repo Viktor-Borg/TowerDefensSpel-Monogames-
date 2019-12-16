@@ -9,11 +9,11 @@ namespace TowerDefenseSpel.MapGeneration
 {
     class Map
     {
-        private TileSet     backgroundTiles;
+        private Dictionary<float,string>backgroundTiles;
         private PathPoint[] pathPoints;
         private Powersource[] powersources;
 
-        public Map(TileSet backgroundTiles, PathPoint[] pathPoints,Powersource[] powersources)
+        public Map(Dictionary<float,string> backgroundTiles, PathPoint[] pathPoints,Powersource[] powersources)
         {
             this.backgroundTiles = backgroundTiles;
             this.pathPoints = pathPoints;
@@ -22,7 +22,8 @@ namespace TowerDefenseSpel.MapGeneration
 
         public void DrawMap(SpriteBatch spriteBatch)
         {
-            foreach(Tile tile in backgroundTiles.Tiles)
+            
+            foreach(Tile tile in backgroundTiles)
             {
 
             }
