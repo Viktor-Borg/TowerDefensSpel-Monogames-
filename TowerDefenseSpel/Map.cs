@@ -9,32 +9,28 @@ namespace TowerDefenseSpel.MapGeneration
 {
     class Map
     {
-        private Dictionary<float,string>backgroundTiles;
+        private Tile[] tiles;
         private PathPoint[] pathPoints;
-        private Powersource[] powersources;
 
-        public Map(Dictionary<float,string> backgroundTiles, PathPoint[] pathPoints,Powersource[] powersources)
+        public Map(Tile[] tiles, PathPoint[] pathPoints)
         {
-            this.backgroundTiles = backgroundTiles;
+            this.tiles = tiles; 
             this.pathPoints = pathPoints;
-            this.powersources = powersources;
         }
 
         public void DrawMap(SpriteBatch spriteBatch)
         {
             
-            foreach(Tile tile in backgroundTiles)
+            /*foreach(Tile tile in backgroundTiles)
             {
 
-            }
-            foreach(Powersource powersource in powersources)
-            {
-
-            }
+            }*/
+           
         }
 
-        public TileSet TileSet { get { return backgroundTiles; } }
-        public PathPoint[] PathPoints { get { return pathPoints; } }
-        public Powersource[] Powersources { get { return powersources; } }
+        //public TileSet TileSet { get { return backgroundTiles; } }
+        public PathPoint[]   PathPoints { get { return pathPoints; } }
+        public Tile[]        MapTiles { get { return tiles; } }
+        
     }
 }

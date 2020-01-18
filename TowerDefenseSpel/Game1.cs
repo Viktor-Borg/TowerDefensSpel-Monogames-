@@ -17,6 +17,12 @@ namespace TowerDefenseSpel
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+          /*  graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.ToggleFullScreen();*/
+            IsMouseVisible = true;
+            graphics.ApplyChanges();
+
         }
 
         /// <summary>
@@ -27,7 +33,7 @@ namespace TowerDefenseSpel
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // TODO: Add your initialization logic
             SceneManager.CurrentState = SceneManager.State.Menu;
             SceneManager.Initialize();
             base.Initialize();
@@ -44,6 +50,7 @@ namespace TowerDefenseSpel
             SceneManager.LoadContent(Content, Window);
             UIMapReader.UiMapReaderinitializer(spriteBatch,Window,Content);
             SceneManager.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
+            
 
 
             // TODO: use this.Content to load your game content here
@@ -69,7 +76,7 @@ namespace TowerDefenseSpel
             switch (SceneManager.CurrentState)
             {
                 case SceneManager.State.LevelPicker:
-                    SceneManager.RunUpdate(Content, Window, gameTime);
+                   // SceneManager.RunUpdate(Content, Window, gameTime);
                     break;
                 case SceneManager.State.HighScore:
                     SceneManager.CurrentState = SceneManager.HighScoreUpdate();
@@ -100,7 +107,8 @@ namespace TowerDefenseSpel
             switch (SceneManager.CurrentState)
             {
                 case SceneManager.State.LevelPicker:
-                    SceneManager.RunDraw(spriteBatch);
+                    UIMapReader.UIMapReaderUpdate();
+
                     break;
                 case SceneManager.State.HighScore:
                     SceneManager.HighScoreDraw(spriteBatch);
@@ -119,5 +127,11 @@ namespace TowerDefenseSpel
 
             base.Draw(gameTime);
         }
+
+        #region helperMethods
+
+      
+
+        #endregion
     }
 }

@@ -12,18 +12,18 @@ namespace TowerDefenseSpel
     class Menu
     {
         MenuItem[] menu;
-        int selected = 0;
-        int amountOfElements = 0;
+        int        selected = 0;
+        int        amountOfElements = 0;
 
-        float currentHeight = 0;
+        float  currentHeight = 0;
         double lastChange = 0;
-        byte defaultMenuState = 0;
+        byte   defaultMenuState = 0;
 
         int k = 0;
 
         public Menu(byte defaultMenuState, int amountOfElements)
         {
-            menu = new MenuItem[amountOfElements];
+            menu                  = new MenuItem[amountOfElements];
             this.amountOfElements = amountOfElements;
             this.defaultMenuState = defaultMenuState;
         }
@@ -38,7 +38,7 @@ namespace TowerDefenseSpel
                 currentHeight += itemTexture.Height + 20;
 
                 MenuItem temp = new MenuItem(itemTexture, new Vector2(X, y), state);
-                menu[k] = temp;
+                menu[k]       = temp;
                 k++;
             }
             

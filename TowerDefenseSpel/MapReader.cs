@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace TowerDefenseSpel.MapGeneration
 {
@@ -28,7 +29,7 @@ namespace TowerDefenseSpel.MapGeneration
             for (int i = 0; i < menu.Meny.Length; i++)
             {
                 XmlElement menuItem = mapData.CreateElement("MenuItem");
-                menuItem.InnerText = menu.Meny[i].Texture.Name;
+                menuItem.InnerText  = menu.Meny[i].Texture.Name;
                 menuItems.AppendChild(menuItem);
             }
             mapData.Save("Mapdata.xml");
@@ -36,8 +37,8 @@ namespace TowerDefenseSpel.MapGeneration
 
         public static Menu LoadMenuScene(string sceneId, byte[] states, ContentManager content, byte defaultState)
         {
-            Menu meny = new Menu(defaultState, states.Length);
-            XmlDocument tempMenu = new XmlDocument();
+            Menu meny             = new Menu(defaultState, states.Length);
+            XmlDocument tempMenu  = new XmlDocument();
             tempMenu.Load(sceneId);
             XmlNodeList menuItems = tempMenu.SelectNodes("MenuItems/MenuItem");
 
@@ -67,62 +68,56 @@ namespace TowerDefenseSpel.MapGeneration
         public static void TranslateToXmlMap(Map map, string mapName)
         {
             XmlDocument tempMap = new XmlDocument();
+            XmlElement mapData = tempMap.CreateElement("MapData");
             XmlElement Tiles = tempMap.CreateElement("Tiles");
             XmlElement pathPoints = tempMap.CreateElement("PathPoints");
-            XmlElement powersources = tempMap.CreateElement("Powersources");
-            XmlElement tileCount = tempMap.CreateElement("TileCount");
-            XmlElement mapdata = tempMap.CreateElement("Map");
-            tempMap.AppendChild(mapdata);
-            mapdata.AppendChild(Tiles);
-            mapdata.AppendChild(pathPoints);
-            mapdata.AppendChild(powersources);
+          
+            tempMap.AppendChild(mapData);
+            mapData.AppendChild(Tiles);
+            mapData.AppendChild(pathPoints);
+            
 
-            for (int i = 0; i < map.TileSet.PlatserY; i++)
+            for (int i = 0; i < map.MapTiles.Length; i++)
             {
-                for (int j = 0; j < map.TileSet.PlatserX; j++)
-                {
-                    XmlElement Tile = tempMap.CreateElement("Tile");
-                    Tile.InnerText = "x: " + j + " y: " + i;
-                    Tiles.AppendChild(Tile);
-                }
+                XmlElement Tile = tempMap.CreateElement("Tile");
+                Tile.InnerText = "x: " + map.MapTiles[i].X + "y: " + map.MapTiles[i].Y + "Type: " + (int)map.MapTiles[i].Type + "size: " + map.MapTiles[i].Size;
+                Tiles.AppendChild(Tile);
             }
             foreach (PathPoint pathPoint in map.PathPoints)
             {
                 XmlElement PathPoint = tempMap.CreateElement("PahtPoint");
-                PathPoint.InnerText = "x: " + pathPoint.X + " y: " + pathPoint.Y;
+                PathPoint.InnerText = "x: " + pathPoint.X + "y: " + pathPoint.Y;
                 pathPoints.AppendChild(PathPoint);
             }
-            foreach (Powersource powersource in map.Powersources)
-            {
-                XmlElement PowerSource = tempMap.CreateElement("PowerSource");
-                PowerSource.InnerText = "x: " + powersource.X + " y: " + powersource.Y;
-                powersources.AppendChild(PowerSource);
-            }
-            tileCount.InnerText = "x: " + map.TileSet.PlatserX + " y: " + map.TileSet.PlatserY;
-            Tiles.AppendChild(tileCount);
-            tempMap.Save(mapName + ".xml");
+            tempMap.Save(mapName);
         }
 
-        public static Map LoadMapScene(Tile backgroundTiles, PathPoint[] pathPoints, Powersource[] powersources, string sceneName)
+        public static Map LoadMapScene(string sceneName)
         {
             XmlDocument temp = new XmlDocument();
             temp.Load(sceneName + ".xml");
 
             XmlNodeList tileSet = temp.SelectNodes("Map/Tiles/Tile");
             XmlNodeList pathpoints = temp.SelectNodes("Map/PathPoints/PathPoint");
-            XmlNodeList powerSources = temp.SelectNodes("Map/Powersources/Powersource");
-            XmlNode tileCount = temp.SelectSingleNode("Map/Tiles/TileCounnt");
 
-            PathPoint[] tempPahtPoints = new PathPoint[pathpoints.Count];
-            Powersource[] tempPowersources = new Powersource[powerSources.Count];
-            TileSet tempTileset;
+            List<Tile> tiles = new List<Tile>();
+            List<PathPoint> pathPoints = new List<PathPoint>();
 
-            string[] tempSplit = tileCount.InnerText.Split(' ');
+            foreach(XmlNode tile in tileSet)
+            {
+                string[] tempString = tile.InnerText.Split(' ');
+                Tile tempTile = new Tile(int.Parse(tempString[3]), (Type)int.Parse(tempString[2]), new Vector2(float.Parse(tempString[1]), float.Parse(tempString[0])));
+                tiles.Add(tempTile);
+            }
+            foreach(XmlNode pathPoint in pathpoints)
+            {
+                string[] tempString = pathPoint.InnerText.Split(' ');
+                PathPoint tempPoint = new PathPoint(int.Parse(tempString[0]), int.Parse(tempString[1]));
+                pathPoints.Add(tempPoint);
+            }
 
-            int x = int.Parse(tempSplit[0]);
-            int y = int.Parse(tempSplit[2]);
-
-            tempTileset = new TileSet()
+            Map map = new Map(tiles.ToArray(), pathPoints.ToArray());
+            return map;
 
         }
 

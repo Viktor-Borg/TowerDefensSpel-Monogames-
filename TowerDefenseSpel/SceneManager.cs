@@ -14,11 +14,11 @@ namespace TowerDefenseSpel
     static class SceneManager
     {
         private static Texture2D menuSprite;
-        private static Vector2 menuPos;
-        private static Menu menu;
+        private static Vector2   menuPos;
+        private static Menu      menu;
         private static PrintText printText;
         private static Texture2D grassTile;
-        private static Map tempMap;
+        private static Map       tempMap;
 
         public enum State : byte{Menu, LevelPicker, HighScore, Quit,MapGeneration, Game };
 
@@ -39,7 +39,7 @@ namespace TowerDefenseSpel
 
             menu = XmlReader.LoadMenuScene("Mapdata.xml", states, content, 0);
 
-            grassTile = content.Load<Texture2D>("grass");
+           /* grassTile = content.Load<Texture2D>("grass");
             int tileSizeX = grassTile.Width;
             int tileSizeY = grassTile.Height;
 
@@ -56,8 +56,8 @@ namespace TowerDefenseSpel
             tempPoints[1] = new PathPoint(100, 150);
 
             tempMap = new Map(temp, tempPoints, tempSource);
-           
-            
+         
+ */           
             //XmlReader.TranslateToXmlMap(tempMap, "Test");
 
            // XmlReader.TranslateToXmlMenu(menu);
@@ -104,7 +104,7 @@ namespace TowerDefenseSpel
         }
 
 
-        public static State CurrentState { get { return currentState; } set { currentState = value; } }
+        public static State     CurrentState { get { return currentState; } set { currentState = value; } }
         public static PrintText DebugPrint { get { return printText; }set { printText = value; } }
     }
 }

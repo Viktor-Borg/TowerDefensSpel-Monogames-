@@ -8,17 +8,22 @@ using Microsoft.Xna.Framework;
 
 namespace TowerDefenseSpel.MapGeneration
 {
-    class Tile
+    enum Type { standard,grass,water,road,powerPoint,pathPoint}
+    class Tile:Gameobject
     {
-        private Texture2D texture;
         private int       size;
-        public Tile(Texture2D texture)
+        private Type      type;
+
+        public Tile(int size, Type type,Vector2 position) : base((int)position.X, (int)position.Y)
         {
-            this.texture = texture;
-            this.size = this.texture.Width;
+            this.size    = size;
+            this.type    = type;
         }
 
-        public Texture2D Texture { get { return texture; } }
-        public int Size          { get { return size; } }
+        public Type      Type { get { return type; } }
+        public int       Size { get { return size; } }
+        
+        
+      
     }
 }
