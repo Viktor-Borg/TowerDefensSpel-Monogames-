@@ -36,32 +36,31 @@ namespace TowerDefenseSpel.MapGeneration
         }
 
       
-        public static void UIMapReaderUpdate()
+        public static void UIMapReaderUpdate(GameTime gamtime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             
-                if(keyboardState.IsKeyDown(Keys.A))
-                {
-                    MapCreator.SelectedTexture = iconTextures[0];
-                    MapCreator.SelectedType    = Type.grass;
-                }
-                if(keyboardState.IsKeyDown(Keys.S))
-                {
-                    MapCreator.SelectedTexture = iconTextures[1];
-                    MapCreator.SelectedType    = Type.water;
-                }
-                if(keyboardState.IsKeyDown(Keys.D))
-                {
-                    MapCreator.SelectedTexture = iconTextures[2];
-                    MapCreator.SelectedType    = Type.road;
-                }
+            if(keyboardState.IsKeyDown(Keys.A))
+            {
+                MapCreator.SelectedTexture = iconTextures[0];
+                MapCreator.SelectedType    = Type.grass;
+            }
+            if(keyboardState.IsKeyDown(Keys.S))
+            {
+                MapCreator.SelectedTexture = iconTextures[1];
+                MapCreator.SelectedType    = Type.water;
+            }
+            if(keyboardState.IsKeyDown(Keys.D))
+            {
+                MapCreator.SelectedTexture = iconTextures[2];
+                MapCreator.SelectedType    = Type.road;
+            }
             if (keyboardState.IsKeyDown(Keys.F))
             {
-                MapCreator.SelectedTexture = null;
                 MapCreator.SelectedType = Type.pathPoint;
             }
             
-            MapCreator.MapCreatorUpdate();
+            MapCreator.MapCreatorUpdate(gamtime);
 
             if (keyboardState.IsKeyDown(Keys.Enter))
             {

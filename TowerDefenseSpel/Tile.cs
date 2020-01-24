@@ -14,7 +14,7 @@ namespace TowerDefenseSpel.MapGeneration
         private int       size;
         private Type      type;
 
-        public Tile(int size, Type type,Vector2 position) : base((int)position.X, (int)position.Y)
+        public Tile(int size, Type type, Vector2 position) : base((int)position.X, (int)position.Y)
         {
             this.size    = size;
             this.type    = type;

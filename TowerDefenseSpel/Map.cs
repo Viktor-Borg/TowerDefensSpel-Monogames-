@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace TowerDefenseSpel.MapGeneration
 {
@@ -18,13 +19,24 @@ namespace TowerDefenseSpel.MapGeneration
             this.pathPoints = pathPoints;
         }
 
-        public void DrawMap(SpriteBatch spriteBatch)
+        public void DrawMap(SpriteBatch spriteBatch, Texture2D[] textures)
         {
             
-            /*foreach(Tile tile in backgroundTiles)
+            foreach(Tile tile in tiles)
             {
-
-            }*/
+                if(tile.Type == Type.grass)
+                {
+                    spriteBatch.Draw(textures[0], new Vector2(tile.X, tile.Y), Color.White);
+                }
+                else if(tile.Type == Type.water)
+                {
+                    spriteBatch.Draw(textures[1], new Vector2(tile.X, tile.Y), Color.White);
+                }
+                else if(tile.Type == Type.road)
+                {
+                    spriteBatch.Draw(textures[2], new Vector2(tile.X, tile.Y), Color.White);
+                }
+            }
            
         }
 

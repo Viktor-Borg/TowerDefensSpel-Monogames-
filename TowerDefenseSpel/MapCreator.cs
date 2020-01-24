@@ -14,19 +14,21 @@ namespace TowerDefenseSpel.MapGeneration
         static private Texture2D                     selectedTexture;
         static private Type                          selectedType;
         static private List<Tile>                    currentTiles = new List<Tile>();
-        static private List<PathPoint> pathPoints = new List<PathPoint>();
-
+        static private List<PathPoint>               pathPoints = new List<PathPoint>();
+        static private double                        timeDelay = 50f;
+        static private double                        lastTimePlaced = 0;
         
-        public static void MapCreatorUpdate()
+        public static void MapCreatorUpdate(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
+            double CurrentTime = gameTime.TotalGameTime.TotalMilliseconds;
 
-            if(mouseState.LeftButton == ButtonState.Pressed)
+            if(mouseState.LeftButton == ButtonState.Pressed && CurrentTime > lastTimePlaced + timeDelay)
             {
-                if (selectedTexture != null)
-                {
-                    AddTile(mouseState.Position.ToVector2(), selectedTexture, selectedType);
-                }
+
+                AddTile(mouseState.Position.ToVector2(), selectedTexture, selectedType);
+                lastTimePlaced = gameTime.TotalGameTime.TotalMilliseconds;
+                
             }
 
             UIMapReader.Drawtiles(currentTiles);
@@ -34,19 +36,21 @@ namespace TowerDefenseSpel.MapGeneration
         }
         private static void AddTile(Vector2 position, Texture2D texture, Type type)
         {
+            
+            
             float d = texture.Width;
             float r = d / 2;
 
             Vector2 positionToBeDrawn = new Vector2((float)(Math.Floor(position.X / d) * d), (float)(Math.Floor(position.Y / d) * d));
-            Tile    temp              = new Tile(texture.Width, type, positionToBeDrawn);
-
-            if(temp.Type == Type.pathPoint)
+            if(type != Type.pathPoint)
             {
-                pathPoints.Add(temp as PathPoint);
+                Tile temp = new Tile(texture.Width, type, positionToBeDrawn);
+                currentTiles.Add(temp);
             }
             else
             {
-                currentTiles.Add(temp);
+                PathPoint temp = new PathPoint(position.X, position.Y);
+                pathPoints.Add(temp);
             }
 
         }

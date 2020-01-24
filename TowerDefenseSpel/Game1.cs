@@ -11,15 +11,17 @@ namespace TowerDefenseSpel
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        SpriteBatch           spriteBatch;
+        Texture2D[]           textures;
+        Map                   selectedMap;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-          /*  graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            graphics.ToggleFullScreen();*/
+            graphics.ToggleFullScreen();
             IsMouseVisible = true;
             graphics.ApplyChanges();
 
@@ -50,6 +52,11 @@ namespace TowerDefenseSpel
             SceneManager.LoadContent(Content, Window);
             UIMapReader.UiMapReaderinitializer(spriteBatch,Window,Content);
             SceneManager.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
+            textures = new Texture2D[3];
+            textures[0] = Content.Load<Texture2D>("grass");
+            textures[1] = Content.Load<Texture2D>("water");
+            textures[2] = Content.Load<Texture2D>("path");
+
             
 
 
@@ -107,11 +114,13 @@ namespace TowerDefenseSpel
             switch (SceneManager.CurrentState)
             {
                 case SceneManager.State.LevelPicker:
-                    UIMapReader.UIMapReaderUpdate();
+                    UIMapReader.UIMapReaderUpdate(gameTime);
 
                     break;
                 case SceneManager.State.HighScore:
-                    SceneManager.HighScoreDraw(spriteBatch);
+                    selectedMap = XmlReader.LoadMapScene("TestMap");
+                    selectedMap.DrawMap(spriteBatch, textures);
+
                     break;
                 case SceneManager.State.Quit:
                     this.Exit();

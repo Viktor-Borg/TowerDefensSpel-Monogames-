@@ -80,16 +80,16 @@ namespace TowerDefenseSpel.MapGeneration
             for (int i = 0; i < map.MapTiles.Length; i++)
             {
                 XmlElement Tile = tempMap.CreateElement("Tile");
-                Tile.InnerText = "x: " + map.MapTiles[i].X + "y: " + map.MapTiles[i].Y + "Type: " + (int)map.MapTiles[i].Type + "size: " + map.MapTiles[i].Size;
+                Tile.InnerText = "x: " + map.MapTiles[i].X + " y: " + map.MapTiles[i].Y + " Type: " + (int)map.MapTiles[i].Type + " size: " + map.MapTiles[i].Size;
                 Tiles.AppendChild(Tile);
             }
             foreach (PathPoint pathPoint in map.PathPoints)
             {
                 XmlElement PathPoint = tempMap.CreateElement("PahtPoint");
-                PathPoint.InnerText = "x: " + pathPoint.X + "y: " + pathPoint.Y;
+                PathPoint.InnerText = "x: " + pathPoint.X + " y: " + pathPoint.Y;
                 pathPoints.AppendChild(PathPoint);
             }
-            tempMap.Save(mapName);
+            tempMap.Save(mapName + ".xml");
         }
 
         public static Map LoadMapScene(string sceneName)
@@ -97,8 +97,8 @@ namespace TowerDefenseSpel.MapGeneration
             XmlDocument temp = new XmlDocument();
             temp.Load(sceneName + ".xml");
 
-            XmlNodeList tileSet = temp.SelectNodes("Map/Tiles/Tile");
-            XmlNodeList pathpoints = temp.SelectNodes("Map/PathPoints/PathPoint");
+            XmlNodeList tileSet = temp.SelectNodes("MapData/Tiles/Tile");
+            XmlNodeList pathpoints = temp.SelectNodes("MapData/PathPoints/PathPoint");
 
             List<Tile> tiles = new List<Tile>();
             List<PathPoint> pathPoints = new List<PathPoint>();
@@ -106,13 +106,13 @@ namespace TowerDefenseSpel.MapGeneration
             foreach(XmlNode tile in tileSet)
             {
                 string[] tempString = tile.InnerText.Split(' ');
-                Tile tempTile = new Tile(int.Parse(tempString[3]), (Type)int.Parse(tempString[2]), new Vector2(float.Parse(tempString[1]), float.Parse(tempString[0])));
+                Tile tempTile = new Tile(int.Parse(tempString[7]), (Type)int.Parse(tempString[5]), new Vector2(float.Parse(tempString[1]), float.Parse(tempString[3])));
                 tiles.Add(tempTile);
             }
             foreach(XmlNode pathPoint in pathpoints)
             {
                 string[] tempString = pathPoint.InnerText.Split(' ');
-                PathPoint tempPoint = new PathPoint(int.Parse(tempString[0]), int.Parse(tempString[1]));
+                PathPoint tempPoint = new PathPoint(int.Parse(tempString[1]), int.Parse(tempString[3]));
                 pathPoints.Add(tempPoint);
             }
 

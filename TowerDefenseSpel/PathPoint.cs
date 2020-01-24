@@ -10,10 +10,10 @@ namespace TowerDefenseSpel
 {
     class PathPoint : Tile
     {
-        private int x;
-        private int y;
+        private float x;
+        private float y;
 
-        public PathPoint(int x, int y) : base(1, MapGeneration.Type.pathPoint, new Vector2(x, y))
+        public PathPoint(float x, float y) : base(1, MapGeneration.Type.pathPoint, new Vector2(x, y))
         {
             this.x = x;
             this.y = y;
