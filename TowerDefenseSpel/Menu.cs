@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -97,7 +92,7 @@ namespace TowerDefenseSpel
                     spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
                 }
             }
-            SceneManager.DebugPrint.Print(menu[0].Texture.Name,spriteBatch,300,300);
+            SceneController.DebugPrint.Print(menu[0].Texture.Name,spriteBatch,300,300);
         }
 
         public MenuItem[] Meny { get { return menu; } set { menu = value; } }

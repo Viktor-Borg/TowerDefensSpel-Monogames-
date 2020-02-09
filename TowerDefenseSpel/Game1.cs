@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using TowerDefenseSpel.MapGeneration;
+using TowerDefenseSpel.GamePlay;
 
 namespace TowerDefenseSpel
 {
@@ -13,18 +13,20 @@ namespace TowerDefenseSpel
         GraphicsDeviceManager graphics;
         SpriteBatch           spriteBatch;
         Texture2D[]           textures;
+        Texture2D[]           enemyTextures;
         Map                   selectedMap;
+        bool                  hasBeenCalledd = true;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1920;
+           /* graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.ToggleFullScreen();
             IsMouseVisible = true;
-            graphics.ApplyChanges();
-
+            graphics.ApplyChanges();*/
+            
         }
 
         /// <summary>
@@ -36,8 +38,7 @@ namespace TowerDefenseSpel
         protected override void Initialize()
         {
             // TODO: Add your initialization logic
-            SceneManager.CurrentState = SceneManager.State.Menu;
-            SceneManager.Initialize();
+            SceneController.CurrentState = SceneController.State.Menu;
             base.Initialize();
         }
 
@@ -48,14 +49,18 @@ namespace TowerDefenseSpel
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            SceneManager.LoadContent(Content, Window);
-            UIMapReader.UiMapReaderinitializer(spriteBatch,Window,Content);
-            SceneManager.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
+            SceneController.LoadContent(Content, Window);
+            UIMapController.UiMapReaderinitializer(spriteBatch,Window,Content);
+            SceneController.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
             textures = new Texture2D[3];
             textures[0] = Content.Load<Texture2D>("grass");
             textures[1] = Content.Load<Texture2D>("water");
             textures[2] = Content.Load<Texture2D>("path");
+            enemyTextures = new Texture2D[1];
+            enemyTextures[0] = Content.Load<Texture2D>("Enemy");
+            
 
             
 
@@ -80,19 +85,20 @@ namespace TowerDefenseSpel
         protected override void Update(GameTime gameTime)
         {
            
-            switch (SceneManager.CurrentState)
+            switch (SceneController.CurrentState)
             {
-                case SceneManager.State.LevelPicker:
+                case SceneController.State.LevelPicker:
                    // SceneManager.RunUpdate(Content, Window, gameTime);
                     break;
-                case SceneManager.State.HighScore:
-                    SceneManager.CurrentState = SceneManager.HighScoreUpdate();
+                case SceneController.State.HighScore:
+                    SceneController.CurrentState = SceneController.HighScoreUpdate();
+                   
                     break;
-                case SceneManager.State.Quit:
+                case SceneController.State.Quit:
                     this.Exit();
                     break;
                 default:
-                    SceneManager.CurrentState = SceneManager.MenuUpdate(gameTime);
+                    SceneController.CurrentState = SceneController.MenuUpdate(gameTime);
                     break;
             }
 
@@ -111,22 +117,28 @@ namespace TowerDefenseSpel
 
             spriteBatch.Begin();
 
-            switch (SceneManager.CurrentState)
+            switch (SceneController.CurrentState)
             {
-                case SceneManager.State.LevelPicker:
-                    UIMapReader.UIMapReaderUpdate(gameTime);
+                case SceneController.State.LevelPicker:
+                    UIMapController.UIMapReaderUpdate(gameTime);
 
                     break;
-                case SceneManager.State.HighScore:
+                case SceneController.State.HighScore:
                     selectedMap = XmlReader.LoadMapScene("TestMap");
                     selectedMap.DrawMap(spriteBatch, textures);
-
+                    if (hasBeenCalledd)
+                    {
+                        WaveController.Initilazie(selectedMap.PathPoints, enemyTextures);
+                        hasBeenCalledd = false;
+                    }
+                    WaveController.Update(spriteBatch);
+                   
                     break;
-                case SceneManager.State.Quit:
+                case SceneController.State.Quit:
                     this.Exit();
                     break;
                 default:
-                    SceneManager.MenuDraw(spriteBatch);
+                    SceneController.MenuDraw(spriteBatch);
                     break;
             }
 

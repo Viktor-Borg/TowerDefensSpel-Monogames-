@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -10,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TowerDefenseSpel.MapGeneration
 {
-    static class UIMapReader
+    static class UIMapController 
     {
         static private Texture2D[]                    iconTextures;
         static private SpriteBatch                    draw;
@@ -18,7 +14,7 @@ namespace TowerDefenseSpel.MapGeneration
         static private ContentManager                 content;
         static private Dictionary<Texture2D, Vector2> icons = new Dictionary<Texture2D, Vector2>();
 
-        public static void UiMapReaderinitializer(SpriteBatch spriteBatch, GameWindow gameWindow, ContentManager contentManager)
+        static public void UiMapReaderinitializer(SpriteBatch spriteBatch, GameWindow gameWindow, ContentManager contentManager)
         {
             draw    = spriteBatch;
             window  = gameWindow;
@@ -27,7 +23,7 @@ namespace TowerDefenseSpel.MapGeneration
 
         }
 
-        static void LoadIcons()
+        static private void LoadIcons()
         {
             iconTextures = new Texture2D[3];
             iconTextures[0] = content.Load<Texture2D>("grass");
@@ -36,39 +32,39 @@ namespace TowerDefenseSpel.MapGeneration
         }
 
       
-        public static void UIMapReaderUpdate(GameTime gamtime)
+        static public void UIMapReaderUpdate(GameTime gamtime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             
             if(keyboardState.IsKeyDown(Keys.A))
             {
-                MapCreator.SelectedTexture = iconTextures[0];
-                MapCreator.SelectedType    = Type.grass;
+                MapController.SelectedTexture = iconTextures[0];
+                MapController.SelectedType    = Type.grass;
             }
             if(keyboardState.IsKeyDown(Keys.S))
             {
-                MapCreator.SelectedTexture = iconTextures[1];
-                MapCreator.SelectedType    = Type.water;
+                MapController.SelectedTexture = iconTextures[1];
+                MapController.SelectedType    = Type.water;
             }
             if(keyboardState.IsKeyDown(Keys.D))
             {
-                MapCreator.SelectedTexture = iconTextures[2];
-                MapCreator.SelectedType    = Type.road;
+                MapController.SelectedTexture = iconTextures[2];
+                MapController.SelectedType    = Type.road;
             }
             if (keyboardState.IsKeyDown(Keys.F))
             {
-                MapCreator.SelectedType = Type.pathPoint;
+                MapController.SelectedType = Type.pathPoint;
             }
             
-            MapCreator.MapCreatorUpdate(gamtime);
+            MapController.MapCreatorUpdate(gamtime);
 
             if (keyboardState.IsKeyDown(Keys.Enter))
             {
-                MapCreator.SaveMap();
+                MapController.SaveMap();
             }
         }
 
-        public static void Drawtiles(List<Tile> tiles)
+        static public void Drawtiles(List<Tile> tiles)
         {
             foreach(Tile tile in tiles)
             {

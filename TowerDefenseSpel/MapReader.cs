@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Xml;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -98,7 +94,7 @@ namespace TowerDefenseSpel.MapGeneration
             temp.Load(sceneName + ".xml");
 
             XmlNodeList tileSet = temp.SelectNodes("MapData/Tiles/Tile");
-            XmlNodeList pathpoints = temp.SelectNodes("MapData/PathPoints/PathPoint");
+            XmlNodeList pathpoints = temp.SelectNodes("MapData/PathPoints/PahtPoint");
 
             List<Tile> tiles = new List<Tile>();
             List<PathPoint> pathPoints = new List<PathPoint>();

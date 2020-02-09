@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,25 +6,22 @@ using TowerDefenseSpel.MapGeneration;
 
 namespace TowerDefenseSpel
 {
-    static class SceneManager
+    static class SceneController 
     {
-        private static Texture2D menuSprite;
-        private static Vector2   menuPos;
-        private static Menu      menu;
-        private static PrintText printText;
-        private static Texture2D grassTile;
-        private static Map       tempMap;
+        static private Texture2D menuSprite;
+        static private Vector2   menuPos;
+        static private Menu      menu;
+        static private PrintText printText;
+        static private Texture2D grassTile;
+        static private Map       tempMap;
 
         public enum State : byte{Menu, LevelPicker, HighScore, Quit,MapGeneration, Game };
 
-        private static State currentState;
+        static private State currentState;
 
-        public static void Initialize()
-        {
+        
 
-        }
-
-        public static void LoadContent(ContentManager content, GameWindow window)
+        static public void LoadContent(ContentManager content, GameWindow window)
         {
             byte[] states = new byte[3];
             for(int i = 0; i< states.Length; i++)
@@ -65,28 +57,28 @@ namespace TowerDefenseSpel
             
         }
 
-        public static State MenuUpdate(GameTime gameTime)
+        static public State MenuUpdate(GameTime gameTime)
         {
             return (State)menu.Update(gameTime);
         }
 
-        public static void MenuDraw(SpriteBatch spriteBatch)
+        static public void MenuDraw(SpriteBatch spriteBatch)
         {
             menu.Draw(spriteBatch);
         }
 
-        public static State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
+        static public State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
         {
 
             return (State)menu.Update(gameTime);
         }
 
-        public static void RunDraw(SpriteBatch spriteBatch)
+        static public void RunDraw(SpriteBatch spriteBatch)
         {
             
         }
         
-        public static State HighScoreUpdate()
+        static public State HighScoreUpdate()
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
@@ -98,13 +90,13 @@ namespace TowerDefenseSpel
             return State.HighScore;
         }
 
-        public static void HighScoreDraw(SpriteBatch spriteBatch)
+        static public void HighScoreDraw(SpriteBatch spriteBatch)
         {
 
         }
 
 
-        public static State     CurrentState { get { return currentState; } set { currentState = value; } }
-        public static PrintText DebugPrint { get { return printText; }set { printText = value; } }
+        static public State     CurrentState { get { return currentState; } set { currentState = value; } }
+        static public PrintText DebugPrint { get { return printText; }set { printText = value; } }
     }
 }
