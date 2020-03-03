@@ -5,16 +5,16 @@ namespace TowerDefenseSpel.GamePlay
 {
     class ObjectPooling<T> where T : VisibleGameobject
     {
-        private List<T> storedObjects;
+        private Queue<T> storedObjects;
         private List<T> activeObjects;
         
         public ObjectPooling(T[] collection)
         {
-            this.storedObjects = new List<T>();
+            this.storedObjects = new Queue<T>();
             this.activeObjects = new List<T>();
             for(int i = 0; i<collection.Length; i++)
             {
-                storedObjects.Add(collection[i]);
+                storedObjects.Enqueue(collection[i]);
             }
             
         }
@@ -34,21 +34,23 @@ namespace TowerDefenseSpel.GamePlay
         {
             for (int i = 0; i < objectsToAdd.Length; i++)
             {
-                storedObjects.Add(objectsToAdd[i]);
+                storedObjects.Enqueue(objectsToAdd[i]);
             }
         }
 
-        public void RemoveStoredObjects(T[] objectsToRemove)
+        public void RemoveStoredObjects(int amountOfObjects)
         {
-            for(int i = 0; i < objectsToRemove.Length; i++)
+            for(int i = 0; i < amountOfObjects; i++)
             {
-                storedObjects.Remove(objectsToRemove[i]);
+                storedObjects.Dequeue();
             }
         }
 
-        public T GrabObject(int index)
+        public T GrabObject()
         {
-            return storedObjects[index];
+            T temp = storedObjects.Dequeue();
+            activeObjects.Add(temp);
+            return temp;
         }
 
         public T[] GetAllStored()

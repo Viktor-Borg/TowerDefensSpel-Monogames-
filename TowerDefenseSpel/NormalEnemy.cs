@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace TowerDefenseSpel.GamePlay
 {
@@ -19,12 +20,17 @@ namespace TowerDefenseSpel.GamePlay
             }
             else
             {
-                if(this.X >= currentPath.X || this.Y >= currentPath.Y)
+                if(Distance(new Vector2(this.X,this.Y)) < distanceToChange)
                 {
-                    
-                    currentPath = pathPoints[i];
-                    i++;
-                    currentPath.OnHit.Invoke();
+                    if(currentPath == pathPoints[pathPoints.Length- 1])
+                    {
+                        OnEnemyDeath.Invoke();
+                    }
+                    else
+                    {
+                        currentPath = pathPoints[i];
+                        i++;
+                    }
                     
                 }
             }
@@ -52,6 +58,7 @@ namespace TowerDefenseSpel.GamePlay
         {
             this.pathPoints = pathPoints;
             this.OnEnemyDeath += OnDeath;
+            this.hp = 25;
         }
 
 

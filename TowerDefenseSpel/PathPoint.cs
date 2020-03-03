@@ -9,7 +9,6 @@ namespace TowerDefenseSpel
         private float x;
         private float y;
 
-        public Action OnHit;
 
         public PathPoint(float x, float y) : base(1, MapGeneration.Type.pathPoint, new Vector2(x, y))
         {

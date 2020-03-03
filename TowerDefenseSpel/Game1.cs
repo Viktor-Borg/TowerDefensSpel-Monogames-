@@ -21,11 +21,11 @@ namespace TowerDefenseSpel
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-           /* graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.ToggleFullScreen();
             IsMouseVisible = true;
-            graphics.ApplyChanges();*/
+            graphics.ApplyChanges();
             
         }
 
@@ -54,12 +54,14 @@ namespace TowerDefenseSpel
             SceneController.LoadContent(Content, Window);
             UIMapController.UiMapReaderinitializer(spriteBatch,Window,Content);
             SceneController.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
+            PlayerController.Font = Content.Load<SpriteFont>("myFont");
             textures = new Texture2D[3];
             textures[0] = Content.Load<Texture2D>("grass");
             textures[1] = Content.Load<Texture2D>("water");
             textures[2] = Content.Load<Texture2D>("path");
             enemyTextures = new Texture2D[1];
             enemyTextures[0] = Content.Load<Texture2D>("Enemy");
+            
             
 
             
@@ -129,9 +131,11 @@ namespace TowerDefenseSpel
                     if (hasBeenCalledd)
                     {
                         WaveController.Initilazie(selectedMap.PathPoints, enemyTextures);
+                        PlayerController.Initalize(spriteBatch);
                         hasBeenCalledd = false;
                     }
                     WaveController.Update(spriteBatch);
+                    PlayerController.draw(spriteBatch);
                    
                     break;
                 case SceneController.State.Quit:

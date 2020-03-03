@@ -19,7 +19,7 @@ namespace TowerDefenseSpel
 
         static private State currentState;
 
-        
+          
 
         static public void LoadContent(ContentManager content, GameWindow window)
         {

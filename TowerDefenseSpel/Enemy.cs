@@ -9,13 +9,13 @@ namespace TowerDefenseSpel.GamePlay
         protected float hp;
         protected PathPoint currentPath;
         protected float damage;
-        protected Action OnEnemyDeath;
+        public Action OnEnemyDeath;
+        protected double distanceToChange = 3.4;
 
         protected abstract void Movment();
 
         public Enemy(Texture2D texture, int x, int y) : base(texture, x, y) 
         {
-            currentPath.OnHit += ChangePath;
         }
 
         public virtual void TakeDamage(float amount)
@@ -44,9 +44,12 @@ namespace TowerDefenseSpel.GamePlay
             
         }
 
-        public void ChangePath()
+        public double Distance(Vector2 currentPosition)
         {
-            currentPath.OnHit += ChangePath;
+            float deltaX = currentPosition.X - currentPath.X;
+            float deltaY = currentPosition.Y - currentPath.Y;
+            float distanceSquared = deltaX * deltaX + deltaY * deltaY;
+            return Math.Sqrt(distanceSquared);
         }
 
         public float Hp { get; set; }
