@@ -4,13 +4,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefenseSpel.GamePlay
 {
-    abstract class Enemy : VisibleGameobject, IKillable
+    /// <summary>
+    /// base class for all enemies in the game written in a way so it is easy to add more enemies at a later date.
+    /// </summary>
+    abstract class Enemy : VisibleGameobject
     {
         protected float hp;
         protected PathPoint currentPath;
         protected float damage;
         public Action OnEnemyDeath;
         protected double distanceToChange = 3.4;
+        protected int movementSpeed = 1;
 
         protected abstract void Movment();
 
@@ -23,7 +27,7 @@ namespace TowerDefenseSpel.GamePlay
             hp -= amount;
             if(hp< 0 && OnEnemyDeath != null)
             {
-                OnEnemyDeath.Invoke();
+                OnDeath();
             }
         }
 
@@ -31,6 +35,16 @@ namespace TowerDefenseSpel.GamePlay
         {
             Movment();
             Draw(spriteBatch);
+        }
+
+        public void Stop()
+        {
+            movementSpeed = 0;
+        }
+
+        public void Start()
+        {
+            movementSpeed = 1;
         }
 
         public abstract void OnDeath();
@@ -44,6 +58,7 @@ namespace TowerDefenseSpel.GamePlay
             
         }
 
+        //get the distance betwwen the current position and the position of  the pathpoint which is the target.
         public double Distance(Vector2 currentPosition)
         {
             float deltaX = currentPosition.X - currentPath.X;
@@ -52,7 +67,12 @@ namespace TowerDefenseSpel.GamePlay
             return Math.Sqrt(distanceSquared);
         }
 
+        #region Attributes
+
         public float Hp { get; set; }
         public float Damage { get; set; }
+
+        #endregion
+
     }
 }

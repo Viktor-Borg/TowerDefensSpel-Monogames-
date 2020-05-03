@@ -1,2 +1,201 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TowerDefenseSpel.BitArray2D" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>BitArray2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.Game1" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEEAAAEBABwgIAAAAAAAAAAAAAAgAAAAAAACAAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.Gameobject" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAYAA=</HashCode>
+      <FileName>Gameobject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.InptController" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAEAAAAAIAEAAAEAIAgAABAAAAAQAAAAAAAAIAA=</HashCode>
+      <FileName>InptController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.Menu" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAgAAgAAAAAAAAgAgAAAgAAAwAAAAgAAAAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MenuItem" Collapsed="true">
+    <Position X="14.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgIAAAIAAAAAAAAgAAAAIABAAAAAA=</HashCode>
+      <FileName>MenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.PathPoint" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>PathPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.PrintText" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>PrintText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.Program" Collapsed="true">
+    <Position X="12.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.SceneController" Collapsed="true">
+    <Position X="14.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAAAAAQAACBAAAAIAAAAChABAAAACAIAAAAAAABAAQ=</HashCode>
+      <FileName>SceneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.VisibleGameobject" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAA=</HashCode>
+      <FileName>VisibleGameobject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.Enemy" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEACAQCAAgiAAAAAEAIAAAAAAAABIIABAgAAAQAA=</HashCode>
+      <FileName>Enemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.NormalEnemy" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAIAAAAAAAAAAIAIAAAEAAAA=</HashCode>
+      <FileName>NormalEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.ObjectPooling&lt;T&gt;" Collapsed="true">
+    <Position X="16" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAACAAAAAEAQAAAAAAAAAEQAAAAAAAICAAAACAA=</HashCode>
+      <FileName>ObjectPooling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.PlayerController" Collapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAIAAAAACAAAIIAIAACAAAAAAAAAFAgAACQAA=</HashCode>
+      <FileName>PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.StandardTower" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAgAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StandardTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.Tower" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAEIICAAhgAgIQAAABAAIAAAAABAIAAAAAAAAAA=</HashCode>
+      <FileName>Tower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.TowerController" Collapsed="true">
+    <Position X="16" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAEAACAAAAgAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>TowerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.UITowerController" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAQUAAEAAAAAAgAAAAAAAAABAAAAAAAAAAAAAAIAAAI=</HashCode>
+      <FileName>UITowerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.GamePlay.WaveController" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQACBAAAAAAAAACAAAAAAAQAABIBoAQAIAAAA=</HashCode>
+      <FileName>WaveController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MapGeneration.Map" Collapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAgIAAAIAAAABAAA=</HashCode>
+      <FileName>Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MapGeneration.MapController" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAACAQAAQIUAAAKAAAAAgAAAAAAAAAAAQIAABAAAAA=</HashCode>
+      <FileName>MapCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MapGeneration.XmlReader" Collapsed="true">
+    <Position X="14.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIAAAAAAAAEAQAAAAAAiAAAAAAAAAAAAQCAAAAAAIAA=</HashCode>
+      <FileName>MapReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MapGeneration.Powersource" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAABAAAAAAAAAAACAABAAAAAAA=</HashCode>
+      <FileName>Powersource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MapGeneration.Tile" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAIAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerDefenseSpel.MapGeneration.UIMapController" Collapsed="true">
+    <Position X="17.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAIAAAAAAABAIAAAAAAAgAAAAoAAAAAAAAAAA=</HashCode>
+      <FileName>UIMapReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TowerDefenseSpel.GamePlay.IKillable" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>IKillable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TowerDefenseSpel.MapGeneration.Type" Collapsed="true">
+    <Position X="12.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAgCAEAAAAAAAAIAAAAAEAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

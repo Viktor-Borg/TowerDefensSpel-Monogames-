@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TowerDefenseSpel
 {
+    /// <summary>
+    /// takes menu items and organize them into a menu.
+    /// </summary>
     class Menu
     {
         MenuItem[] menu;
@@ -15,14 +18,14 @@ namespace TowerDefenseSpel
         byte   defaultMenuState = 0;
 
         int k = 0;
-
+        //take in the default state of the menu and the amount of menu items the mennu will contain.
         public Menu(byte defaultMenuState, int amountOfElements)
         {
             menu                  = new MenuItem[amountOfElements];
             this.amountOfElements = amountOfElements;
             this.defaultMenuState = defaultMenuState;
         }
-
+        //adds a menu item to the menu.
         public void AddItem(Texture2D itemTexture, byte state)
         {
             if(k < amountOfElements)
@@ -39,7 +42,7 @@ namespace TowerDefenseSpel
             
 
         }
-
+        //checks if the user have pressed the up or down key and if they have it changes the menu item in focus accordingly.also checks if the user presses enter and then return the coresponding state.
         public byte Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
@@ -79,6 +82,7 @@ namespace TowerDefenseSpel
             return defaultMenuState;
         }
         
+        //draws the menu on the screen.
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i <menu.Length; i++)
@@ -92,9 +96,15 @@ namespace TowerDefenseSpel
                     spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
                 }
             }
-            SceneController.DebugPrint.Print(menu[0].Texture.Name,spriteBatch,300,300);
+           
         }
 
+        #region Attributes
+
         public MenuItem[] Meny { get { return menu; } set { menu = value; } }
+
+        #endregion
+
+
     }
 }

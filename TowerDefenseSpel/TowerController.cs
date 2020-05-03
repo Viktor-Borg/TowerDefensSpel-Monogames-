@@ -6,41 +6,38 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TowerDefenseSpel.GamePlay
 {
+    /// <summary>
+    /// controlls all the active towers on the map.
+    /// </summary>
     static class TowerController 
     {
        static private List<Tower> towers = new List<Tower>();
        
-       static public List<Action> uppgrade = new List<Action>();
+       
         
-       static private Texture2D[] textures;
-
+        //calls the update method on all active towers.
         static public void Update(GameTime gameTime,SpriteBatch spriteBatch)
         {
             foreach(Tower tower in towers)
             {
-                tower.Update(gameTime);
-                tower.Draw(spriteBatch);
+                tower.Update(gameTime,spriteBatch);
+                
             }
         }
+        //clears the tower list once the user returns to the main menu.
+        public static void Reset()
+        {
+            towers.Clear();
+        }
 
-        static public void BuyNewTower(Tower tower,int x, int y)
+      //buys new tower if the player have enough currency.
+        static public void BuyNewTower(Tower tower)
         {
             if(PlayerController.Currency > tower.BuyCost)
              {  
                 PlayerController.Currency -= tower.BuyCost;
-                
-                byte towerType = (byte)tower.towerType;
-                switch (towerType)
-                {
-                    case 0:
-                        StandardTower temp = new StandardTower(textures[0], x, y);
-                        towers.Add(temp);
-                        break;
-                    default:
-                        break;
-                   
 
-                }
+                towers.Add(tower);
 
             }
         }
