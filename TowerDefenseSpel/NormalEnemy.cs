@@ -37,23 +37,26 @@ namespace TowerDefenseSpel.GamePlay
                     
                 }
             }
-            
-            if(this.X > currentPath.X)
+            if (!WaveController.DeadEnemies.Contains(this))
             {
-                this.X -= movementSpeed;
+                if (this.X > currentPath.X)
+                {
+                    this.X -= movementSpeed;
+                }
+                else if (this.X < currentPath.X)
+                {
+                    this.X += movementSpeed;
+                }
+                else if (this.Y > currentPath.Y)
+                {
+                    this.Y -= movementSpeed;
+                }
+                else if (this.Y < currentPath.Y)
+                {
+                    this.Y += movementSpeed;
+                }
             }
-            else if(this.X < currentPath.X)
-            {
-                this.X += movementSpeed;
-            }
-            else if(this.Y > currentPath.Y)
-            {
-                this.Y -= movementSpeed;
-            }
-            else if(this.Y < currentPath.Y)
-            {
-                this.Y += movementSpeed;
-            }
+           
             
         }
         //takes in the pathpoints this enemy will follow as well as the texture and starting position of the enemy.

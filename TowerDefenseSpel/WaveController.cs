@@ -26,16 +26,18 @@ namespace TowerDefenseSpel.GamePlay
         {
             pathPoints        = points;
             enemyTextures     = textures;
-            Enemy[] temp      = new Enemy[100];
+            Enemy[] temp      = new Enemy[1000];
             
 
-            for(int i = 0; i<100; i++)
+            for(int i = 0; i<1000; i++)
             {
                 temp[i]               = new NormalEnemy(pathPoints, enemyTextures[0], pathPoints[0].X, pathPoints[0].Y);
                 temp[i].OnEnemyDeath += PlayerController.TakeDamage;
                 
             }
             enemiePool = new ObjectPooling<Enemy>(temp);
+
+        
 
             NextWave();
             hasBeenActivated = true;
@@ -51,7 +53,6 @@ namespace TowerDefenseSpel.GamePlay
                 }
                 if(deadEnemies.Count == enemiesToSpawn && PlayerController.Hp > 0)
                 {
-                    deadEnemies.Clear();
                     NextWave();
                 }
             }
@@ -60,7 +61,7 @@ namespace TowerDefenseSpel.GamePlay
         //loads the next wave and calls the startspawn method.
         private static void NextWave()
         {
-            enemiesToSpawn = wave * 10;
+            enemiesToSpawn += wave * 10;
             wave++;
             StartSpawn();
         }
@@ -70,6 +71,11 @@ namespace TowerDefenseSpel.GamePlay
             wave = 1;
             enemiePool.ActiveObjects.Clear();
             spawnedEnemies = 0;
+            enemiesToSpawn = 0;
+            if (deadEnemies.Count != 0)
+            {
+                deadEnemies.Clear();
+            }
             timer.Stop();
             timer.Dispose();
         }

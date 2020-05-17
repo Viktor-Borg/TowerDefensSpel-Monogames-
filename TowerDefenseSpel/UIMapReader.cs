@@ -65,6 +65,7 @@ namespace TowerDefenseSpel.MapGeneration
                 Game1.NameChosen = false;
                 InptController.MapName = "";
                 InptController.IsNameDone = false;
+                Game1.HelpMenuActive = true;
             }
             
             MapController.MapCreatorUpdate(gamtime);

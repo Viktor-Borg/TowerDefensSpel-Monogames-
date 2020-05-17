@@ -51,6 +51,8 @@ namespace TowerDefenseSpel.MapGeneration
                 Game1.InteractableMenu.Reset();
                 WaveController.Reset();
                 TowerController.Reset();
+                PlayerController.Reset();
+                Game1.HelpMenuActive = true;
             }
         }
 

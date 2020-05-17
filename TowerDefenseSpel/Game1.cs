@@ -25,7 +25,7 @@ namespace TowerDefenseSpel
       private static bool           mapHasBeenSelected = false;
         private TextPage tileHelpMenu;
         private TextPage gameHelpMenu;
-        private bool helpMenuActive = true;
+        private static bool helpMenuActive = true;
         private int delay = 500;
         private double previouslyActiveMenuTime = 0;
 
@@ -108,18 +108,19 @@ namespace TowerDefenseSpel
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-           
+
+           //checks which game state the game currently is in.
             switch (SceneController.CurrentState)
             {
                 case SceneController.State.LevelPicker:
                     KeyboardState keyboardState = Keyboard.GetState();
-                    if (!nameChosen && !helpMenuActive)
+                    if (!nameChosen && !helpMenuActive)//checks if the name is chosen and if the help menu is active.
                     {
                         nameChosen = InptController.InputUpdate(gameTime);
                         
                         
                     }
-                    if (!helpMenuActive)
+                    if (!helpMenuActive)//checks if the help menu is active.
                     {
                         if (gameTime.TotalGameTime.TotalMilliseconds > delay + previouslyActiveMenuTime && keyboardState.IsKeyDown(Keys.H))
                         {
@@ -135,7 +136,6 @@ namespace TowerDefenseSpel
                             previouslyActiveMenuTime = gameTime.TotalGameTime.TotalMilliseconds;
                         }
                     }
-                   // SceneManager.RunUpdate(Content, Window, gameTime);
                     break;
                 case SceneController.State.HighScore:
                     KeyboardState keyboardState1 = Keyboard.GetState();
@@ -185,6 +185,7 @@ namespace TowerDefenseSpel
 
             spriteBatch.Begin();
 
+            //checks which game state the game currently is in.
             switch (SceneController.CurrentState)
             {
                 case SceneController.State.LevelPicker:
@@ -255,6 +256,8 @@ namespace TowerDefenseSpel
         public static bool NameChosen { set { nameChosen = value; } }
 
         public static bool HasBeenCalled { get { return hasBeenCalledd; } set { hasBeenCalledd = value; } }
+
+        public static bool HelpMenuActive { get { return helpMenuActive; }set { helpMenuActive = value; } }
 
         public static InteractableMenu InteractableMenu { get { return interactableMenu; } }
 

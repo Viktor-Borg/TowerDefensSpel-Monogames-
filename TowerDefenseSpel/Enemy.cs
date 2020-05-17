@@ -25,7 +25,7 @@ namespace TowerDefenseSpel.GamePlay
         public virtual void TakeDamage(float amount)
         {
             hp -= amount;
-            if(hp< 0 && OnEnemyDeath != null)
+            if(hp< 0)
             {
                 OnDeath();
             }
@@ -37,15 +37,6 @@ namespace TowerDefenseSpel.GamePlay
             Draw(spriteBatch);
         }
 
-        public void Stop()
-        {
-            movementSpeed = 0;
-        }
-
-        public void Start()
-        {
-            movementSpeed = 1;
-        }
 
         public abstract void OnDeath();
 
