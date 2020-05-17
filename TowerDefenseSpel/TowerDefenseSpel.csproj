@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,28 +36,44 @@
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Controller.cs" />
+    <Compile Include="BitArray2D.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Gameobject.cs" />
+    <Compile Include="Iinteractable.cs" />
+    <Compile Include="InptController.cs" />
+    <Compile Include="InteractableItem.cs" />
+    <Compile Include="InteractableMenu.cs" />
+    <Compile Include="InteractableObject.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapCreator.cs" />
     <Compile Include="MapReader.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuItem.cs" />
+    <Compile Include="NormalEnemy.cs" />
+    <Compile Include="ObjectPooling.cs" />
     <Compile Include="PathPoint.cs" />
-    <Compile Include="Powersource.cs" />
+    <Compile Include="PlayerController.cs" />
     <Compile Include="PrintText.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SceneManager.cs" />
+    <Compile Include="StandardTower.cs" />
+    <Compile Include="TextPage.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="Tower.cs" />
+    <Compile Include="TowerController.cs" />
     <Compile Include="UIMapReader.cs" />
+    <Compile Include="UITowerController.cs" />
     <Compile Include="VisibleGameobject.cs" />
+    <Compile Include="WaveController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
@@ -99,9 +116,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram3.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TowerDefenseSpel
 {
+    /// <summary>
+    /// base class for all objects in the game.
+    /// </summary>
     class Gameobject
     {
-        private int x;
-        private int y;
+        protected int x;
+        protected int y;
 
         public Gameobject(int x,int y)
         {
@@ -17,7 +15,13 @@ namespace TowerDefenseSpel
             this.y = y;
         }
 
+        #region Attributes
+
         public int X { get { return x; } set { x = value; } }
         public int Y { get { return y; } set { y = value; } }
+
+        #endregion
+
+
     }
 }

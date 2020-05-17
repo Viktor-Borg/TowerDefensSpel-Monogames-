@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -10,15 +6,19 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TowerDefenseSpel.MapGeneration
 {
-    static class UIMapReader
+    /// <summary>
+    /// responsible for all UI elements when the user creates a new amp.
+    /// </summary>
+    static class UIMapController 
     {
         static private Texture2D[]                    iconTextures;
         static private SpriteBatch                    draw;
         static private GameWindow                     window;
         static private ContentManager                 content;
         static private Dictionary<Texture2D, Vector2> icons = new Dictionary<Texture2D, Vector2>();
-
-        public static void UiMapReaderinitializer(SpriteBatch spriteBatch, GameWindow gameWindow, ContentManager contentManager)
+        static private bool                           isSaved = false;
+        //initilize the class.
+        static public void UiMapReaderinitializer(SpriteBatch spriteBatch, GameWindow gameWindow, ContentManager contentManager)
         {
             draw    = spriteBatch;
             window  = gameWindow;
@@ -26,8 +26,8 @@ namespace TowerDefenseSpel.MapGeneration
             LoadIcons();
 
         }
-
-        static void LoadIcons()
+        //loads all the tile textures.
+        static private void LoadIcons()
         {
             iconTextures = new Texture2D[3];
             iconTextures[0] = content.Load<Texture2D>("grass");
@@ -35,40 +35,53 @@ namespace TowerDefenseSpel.MapGeneration
             iconTextures[2] = content.Load<Texture2D>("path");
         }
 
-      
-        public static void UIMapReaderUpdate(GameTime gamtime)
+      //responsible for checking if the user chnages the tile type they are using as well as if they are pressing escape and calls all the necessary reset methods for the user to go back to the main menu. Also checks if the user presses eneter and calls the save map function.
+        static public void UIMapReaderUpdate(GameTime gamtime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             
             if(keyboardState.IsKeyDown(Keys.A))
             {
-                MapCreator.SelectedTexture = iconTextures[0];
-                MapCreator.SelectedType    = Type.grass;
+                MapController.SelectedTexture = iconTextures[0];
+                MapController.SelectedType    = Type.grass;
             }
             if(keyboardState.IsKeyDown(Keys.S))
             {
-                MapCreator.SelectedTexture = iconTextures[1];
-                MapCreator.SelectedType    = Type.water;
+                MapController.SelectedTexture = iconTextures[1];
+                MapController.SelectedType    = Type.water;
             }
             if(keyboardState.IsKeyDown(Keys.D))
             {
-                MapCreator.SelectedTexture = iconTextures[2];
-                MapCreator.SelectedType    = Type.road;
+                MapController.SelectedTexture = iconTextures[2];
+                MapController.SelectedType    = Type.road;
             }
             if (keyboardState.IsKeyDown(Keys.F))
             {
-                MapCreator.SelectedType = Type.pathPoint;
+                MapController.SelectedType = Type.pathPoint;
+            }
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                SceneController.CurrentState = SceneController.State.Menu;
+                Game1.NameChosen = false;
+                InptController.MapName = "";
+                InptController.IsNameDone = false;
+                Game1.HelpMenuActive = true;
             }
             
-            MapCreator.MapCreatorUpdate(gamtime);
+            MapController.MapCreatorUpdate(gamtime);
 
             if (keyboardState.IsKeyDown(Keys.Enter))
             {
-                MapCreator.SaveMap();
+                if (!isSaved)
+                {
+                    MapController.SaveMap();
+                    isSaved = true;
+                }
+               
             }
         }
-
-        public static void Drawtiles(List<Tile> tiles)
+        //draws all the tiles while the user is creating a new map.
+        static public void Drawtiles(List<Tile> tiles)
         {
             foreach(Tile tile in tiles)
             {
@@ -88,6 +101,12 @@ namespace TowerDefenseSpel.MapGeneration
             }
 
         }
+
+        #region Attributes
+
+        public static Texture2D GrassTexture { get { return iconTextures[0]; } }
+
+        #endregion
 
     }
 }

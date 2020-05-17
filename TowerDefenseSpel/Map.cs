@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using TowerDefenseSpel.GamePlay;
 
 namespace TowerDefenseSpel.MapGeneration
 {
+    /// <summary>
+    /// Gets all the tiles and pathpoints which are used in a map and puts them together in one class.
+    /// </summary>
     class Map
     {
         private Tile[] tiles;
         private PathPoint[] pathPoints;
-
+        //takes in all the tiles and pathpoints which makes up the map.
         public Map(Tile[] tiles, PathPoint[] pathPoints)
         {
             this.tiles = tiles; 
             this.pathPoints = pathPoints;
         }
-
+        //draws all the tile which makes up the map.
         public void DrawMap(SpriteBatch spriteBatch, Texture2D[] textures)
         {
             
@@ -39,10 +39,31 @@ namespace TowerDefenseSpel.MapGeneration
             }
            
         }
+        //checks wether or not the user have pressed escape and if they have call all the neccessary reset methods to go back to the main menu.
+        public void MapUpdate()
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                SceneController.CurrentState = SceneController.State.Menu;
+                Game1.MapHasBeenSelected = false;
+                Game1.HasBeenCalled = false;
+                Game1.InteractableMenu.Reset();
+                WaveController.Reset();
+                TowerController.Reset();
+                PlayerController.Reset();
+                Game1.HelpMenuActive = true;
+            }
+        }
 
-        //public TileSet TileSet { get { return backgroundTiles; } }
-        public PathPoint[]   PathPoints { get { return pathPoints; } }
-        public Tile[]        MapTiles { get { return tiles; } }
-        
+        #region Attributes
+
+        public PathPoint[] PathPoints { get { return pathPoints; } }
+        public Tile[] MapTiles { get { return tiles; } }
+
+        #endregion
+
+
+
     }
 }

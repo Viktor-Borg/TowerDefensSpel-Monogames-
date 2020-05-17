@@ -1,19 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using TowerDefenseSpel.MapGeneration;
+using TowerDefenseSpel.GamePlay;
+using Microsoft.Xna.Framework.Input;
 
 namespace TowerDefenseSpel
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch           spriteBatch;
-        Texture2D[]           textures;
-        Map                   selectedMap;
+      private GraphicsDeviceManager graphics;
+      private SpriteBatch           spriteBatch;
+      private Texture2D[]           textures;
+      private Texture2D[]           enemyTextures;
+      private Texture2D[]           towerTextures;
+      private Texture2D             projectileTexture;
+      private static Map            selectedMap;
+      private static bool                  hasBeenCalledd = false;
+      private static bool                  nameChosen = false;
+      private string[]              mapNames;
+      private static  InteractableMenu      interactableMenu;
+      private static bool           mapHasBeenSelected = false;
+        private TextPage tileHelpMenu;
+        private TextPage gameHelpMenu;
+        private static bool helpMenuActive = true;
+        private int delay = 500;
+        private double previouslyActiveMenuTime = 0;
 
         public Game1()
         {
@@ -24,7 +38,7 @@ namespace TowerDefenseSpel
             graphics.ToggleFullScreen();
             IsMouseVisible = true;
             graphics.ApplyChanges();
-
+            
         }
 
         /// <summary>
@@ -36,8 +50,8 @@ namespace TowerDefenseSpel
         protected override void Initialize()
         {
             // TODO: Add your initialization logic
-            SceneManager.CurrentState = SceneManager.State.Menu;
-            SceneManager.Initialize();
+            SceneController.CurrentState = SceneController.State.Menu;
+            
             base.Initialize();
         }
 
@@ -48,14 +62,29 @@ namespace TowerDefenseSpel
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            SceneManager.LoadContent(Content, Window);
-            UIMapReader.UiMapReaderinitializer(spriteBatch,Window,Content);
-            SceneManager.DebugPrint =  new PrintText(Content.Load<SpriteFont>("myFont"));
+            SceneController.LoadContent(Content, Window);
+            UIMapController.UiMapReaderinitializer(spriteBatch,Window,Content);
+            PlayerController.Font = Content.Load<SpriteFont>("myFont");
+            InptController.initialize(PlayerController.Font);
             textures = new Texture2D[3];
             textures[0] = Content.Load<Texture2D>("grass");
             textures[1] = Content.Load<Texture2D>("water");
             textures[2] = Content.Load<Texture2D>("path");
+            towerTextures = new Texture2D[1];
+            towerTextures[0] = Content.Load<Texture2D>("Enemy");
+            projectileTexture = towerTextures[0];
+            enemyTextures = new Texture2D[1];
+            enemyTextures[0] = Content.Load<Texture2D>("Enemy");
+            mapNames = XmlReader.GetNames();
+            interactableMenu = new InteractableMenu(mapNames, Content.Load<SpriteFont>("myFont"));
+            tileHelpMenu = XmlReader.GetHelpMenu(spriteBatch, PlayerController.Font, "TileHelpMenu");
+            gameHelpMenu = XmlReader.GetHelpMenu(spriteBatch, PlayerController.Font, "GameHelpMenu");
+
+            
+            
+            
 
             
 
@@ -79,20 +108,65 @@ namespace TowerDefenseSpel
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-           
-            switch (SceneManager.CurrentState)
+
+           //checks which game state the game currently is in.
+            switch (SceneController.CurrentState)
             {
-                case SceneManager.State.LevelPicker:
-                   // SceneManager.RunUpdate(Content, Window, gameTime);
+                case SceneController.State.LevelPicker:
+                    KeyboardState keyboardState = Keyboard.GetState();
+                    if (!nameChosen && !helpMenuActive)//checks if the name is chosen and if the help menu is active.
+                    {
+                        nameChosen = InptController.InputUpdate(gameTime);
+                        
+                        
+                    }
+                    if (!helpMenuActive)//checks if the help menu is active.
+                    {
+                        if (gameTime.TotalGameTime.TotalMilliseconds > delay + previouslyActiveMenuTime && keyboardState.IsKeyDown(Keys.H))
+                        {
+                            helpMenuActive = true;
+                            previouslyActiveMenuTime = gameTime.TotalGameTime.TotalMilliseconds;
+                        }
+                    }
+                    else if (helpMenuActive)
+                    {
+                        if (keyboardState.IsKeyDown(Keys.H) && gameTime.TotalGameTime.TotalMilliseconds > delay + previouslyActiveMenuTime)
+                        {
+                            helpMenuActive = false;
+                            previouslyActiveMenuTime = gameTime.TotalGameTime.TotalMilliseconds;
+                        }
+                    }
                     break;
-                case SceneManager.State.HighScore:
-                    SceneManager.CurrentState = SceneManager.HighScoreUpdate();
+                case SceneController.State.HighScore:
+                    KeyboardState keyboardState1 = Keyboard.GetState();
+                    if (mapHasBeenSelected && !helpMenuActive)
+                    {
+                        selectedMap.MapUpdate();
+                    }
+                    if (!helpMenuActive)
+                    {
+                        if (gameTime.TotalGameTime.TotalMilliseconds > delay + previouslyActiveMenuTime && keyboardState1.IsKeyDown(Keys.H))
+                        {
+                            helpMenuActive = true;
+                            previouslyActiveMenuTime = gameTime.TotalGameTime.TotalMilliseconds;
+                        }
+                    }
+                    else if (helpMenuActive)
+                    {
+                        if (keyboardState1.IsKeyDown(Keys.H) && gameTime.TotalGameTime.TotalMilliseconds > delay + previouslyActiveMenuTime)
+                        {
+                            helpMenuActive = false;
+                            previouslyActiveMenuTime = gameTime.TotalGameTime.TotalMilliseconds;
+                        }
+                    }
+                    UITowerController.Update();
+                   
                     break;
-                case SceneManager.State.Quit:
+                case SceneController.State.Quit:
                     this.Exit();
                     break;
                 default:
-                    SceneManager.CurrentState = SceneManager.MenuUpdate(gameTime);
+                    SceneController.CurrentState = SceneController.MenuUpdate(gameTime);
                     break;
             }
 
@@ -111,22 +185,60 @@ namespace TowerDefenseSpel
 
             spriteBatch.Begin();
 
-            switch (SceneManager.CurrentState)
+            //checks which game state the game currently is in.
+            switch (SceneController.CurrentState)
             {
-                case SceneManager.State.LevelPicker:
-                    UIMapReader.UIMapReaderUpdate(gameTime);
+                case SceneController.State.LevelPicker:
+                    if (nameChosen && !helpMenuActive)
+                    {
+                        UIMapController.UIMapReaderUpdate(gameTime);
+                    }
+                    else if(!helpMenuActive)
+                    {
+                        InptController.MapUDrawpdate(spriteBatch);
+                    }
+
+                    if (helpMenuActive)
+                    {
+                        tileHelpMenu.Draw(spriteBatch);
+                    }
+                  
 
                     break;
-                case SceneManager.State.HighScore:
-                    selectedMap = XmlReader.LoadMapScene("TestMap");
-                    selectedMap.DrawMap(spriteBatch, textures);
+                case SceneController.State.HighScore:
+                    if (mapHasBeenSelected && !helpMenuActive)
+                    {
+                        selectedMap.DrawMap(spriteBatch, textures);
+                        if (!hasBeenCalledd)
+                        {
+                            
+                            WaveController.Initilazie(selectedMap.PathPoints, enemyTextures);
+                            PlayerController.Initalize(spriteBatch);
+                            UITowerController.Initilalize(towerTextures,projectileTexture);
+                            hasBeenCalledd = true;
+                        }
+                        WaveController.Update(spriteBatch);
+                        PlayerController.draw(spriteBatch);
+                        TowerController.Update(gameTime, spriteBatch);
+                    }
+                    else if(!helpMenuActive)
+                    {
+                        interactableMenu.Draw(spriteBatch);
+                    }
 
+                    if (helpMenuActive)
+                    {
+                        gameHelpMenu.Draw(spriteBatch);
+                    }
+                  
+                  
+                   
                     break;
-                case SceneManager.State.Quit:
+                case SceneController.State.Quit:
                     this.Exit();
                     break;
                 default:
-                    SceneManager.MenuDraw(spriteBatch);
+                    SceneController.MenuDraw(spriteBatch);
                     break;
             }
 
@@ -137,10 +249,21 @@ namespace TowerDefenseSpel
             base.Draw(gameTime);
         }
 
-        #region helperMethods
+        #region Attributes
 
-      
+        public static Map Map { set { selectedMap = value; } }
+        public static bool MapHasBeenSelected { set { mapHasBeenSelected = value; } }
+        public static bool NameChosen { set { nameChosen = value; } }
+
+        public static bool HasBeenCalled { get { return hasBeenCalledd; } set { hasBeenCalledd = value; } }
+
+        public static bool HelpMenuActive { get { return helpMenuActive; }set { helpMenuActive = value; } }
+
+        public static InteractableMenu InteractableMenu { get { return interactableMenu; } }
 
         #endregion
+
+
+
     }
 }

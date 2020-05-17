@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Xml;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,18 +6,27 @@ using Microsoft.Xna.Framework;
 
 namespace TowerDefenseSpel.MapGeneration
 {
+    /// <summary>
+    /// responsible for interacting with the xml files used in the game.
+    /// </summary>
     static class XmlReader
     {
         static XmlDocument mapData = new XmlDocument();
+        static XmlDocument mapNames = new XmlDocument();
 
-        #region MenyMetoder
 
+        // these two methods load in xml files.
         static void ReadFile()
         {
             mapData.Load("Mapdata.xml");
         }
 
+        public static void ReadNames()
+        {
+            mapNames.Load("MapNames.xml");
+        }
 
+        //responsible for translating menus to xml files.
         public static void TranslateToXmlMenu(Menu menu)
         {
             XmlElement menuItems = mapData.CreateElement("MenuItems");
@@ -34,7 +39,7 @@ namespace TowerDefenseSpel.MapGeneration
             }
             mapData.Save("Mapdata.xml");
         }
-
+        // responsible for loading xml files describing menus back into the game and makes a Menu items and then retrns it.
         public static Menu LoadMenuScene(string sceneId, byte[] states, ContentManager content, byte defaultState)
         {
             Menu meny             = new Menu(defaultState, states.Length);
@@ -60,11 +65,7 @@ namespace TowerDefenseSpel.MapGeneration
 
         }
 
-
-        #endregion
-
-        #region MapMetoder
-
+        //Responsible for translating maps into xml files.
         public static void TranslateToXmlMap(Map map, string mapName)
         {
             XmlDocument tempMap = new XmlDocument();
@@ -90,15 +91,16 @@ namespace TowerDefenseSpel.MapGeneration
                 pathPoints.AppendChild(PathPoint);
             }
             tempMap.Save(mapName + ".xml");
+            AddName(mapName);
         }
-
+        //responsible for loading in xml files describing a amp and then recreates the map and returns it.
         public static Map LoadMapScene(string sceneName)
         {
             XmlDocument temp = new XmlDocument();
             temp.Load(sceneName + ".xml");
 
             XmlNodeList tileSet = temp.SelectNodes("MapData/Tiles/Tile");
-            XmlNodeList pathpoints = temp.SelectNodes("MapData/PathPoints/PathPoint");
+            XmlNodeList pathpoints = temp.SelectNodes("MapData/PathPoints/PahtPoint");
 
             List<Tile> tiles = new List<Tile>();
             List<PathPoint> pathPoints = new List<PathPoint>();
@@ -121,7 +123,57 @@ namespace TowerDefenseSpel.MapGeneration
 
         }
 
-        #endregion
+   
+        //responsible for adding the map names into a xmlfile so it can later be loaded back in to get all the maps the game has saved.
+        private static void AddName(string name)
+        {
+            ReadNames();
+            XmlNode nameNode = mapNames.SelectSingleNode("Names");
+            
+            
+            XmlElement thisName = mapNames.CreateElement("Name");
+            thisName.InnerText = name;
+            nameNode.AppendChild(thisName);
+            mapNames.Save("MapNames.xml");
+        }
+
+        //loads the mapname file and returns an array of all the map names currently saved.
+        public static string[] GetNames()
+        {
+            ReadNames();
+            XmlNodeList names = mapNames.SelectNodes("Names/Name");
+
+            List<string> tempNameHolder = new List<string>();
+
+            foreach(XmlNode name in names)
+            {
+                tempNameHolder.Add(name.InnerText);
+            }
+
+            return tempNameHolder.ToArray();
+        }
+
+        //responsible for loading in the help menu files and making them into a textpage object so it can be displayed to the user.
+        public static TextPage GetHelpMenu(SpriteBatch spriteBatch,SpriteFont font, string menuName)
+        {
+            XmlDocument menu = new XmlDocument();
+            menu.Load(menuName + ".xml");
+            XmlNodeList lines = menu.SelectNodes("Lines/Line");
+            string[] textLines = new string[lines.Count];
+            PrintText[] printLines = new PrintText[lines.Count];
+            for (int i = 0; i < lines.Count; i++)
+            {
+                textLines[i] = lines[i].InnerText;
+            }
+            for (int i = 0; i < lines.Count; i++)
+            {
+                printLines[i] = new PrintText(font, 0, 25 * (i + 1));
+            }
+
+            return new TextPage(printLines, textLines);
+
+
+        }
 
 
     }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefenseSpel
 {
+    /// <summary>
+    /// base class for all gameobjects with textures.
+    /// </summary>
     class VisibleGameobject : Gameobject
     {
         private Texture2D texture;
@@ -17,7 +14,12 @@ namespace TowerDefenseSpel
             this.texture = texture;
         }
 
+        #region Attributes
+
         public Texture2D Texture { get { return texture; } set { texture = value; } }
-            
+
+        #endregion
+
+
     }
 }
